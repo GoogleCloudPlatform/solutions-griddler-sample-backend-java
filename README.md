@@ -45,12 +45,11 @@ This sample source code and project is designed to work with Eclipse. It was tes
    * gcm-server.jar. Open Android SDK Manager and choose Extras > Google Cloud Messaging for Android Library. This creates a gcm directory under YOUR_ANDROID_SDK_ROOT/extras/google/ containing "gcm-server/dist" subdirectory which has gcm-server.jar file.
    * Download [google-gson-2.1-release.zip](https://google-gson.googlecode.com/files/google-gson-2.1-release.zip) and extract the zip file, and you have "google-gson-2.1" directory which has gson-2.1.jar file.
    * Download [json-simple.1.1.1.jar](https://json-simple.googlecode.com/files/json-simple-1.1.1.jar) file.
+   * Download [log4j-1.2.17.jar](http://logging.apache.org/log4j/1.2/download.html) file.
    * Download [JavaPNS-2.2.jar](https://code.google.com/p/javapns/downloads/list) file.
    * Download [bcprov-jdk15on-146.jar](http://www.bouncycastle.org/download/bcprov-jdk15on-146.jar) file. The downloaded jar file is signed.  Execute the following command to unsign this jar file:
 
          zip -d bcprov-jdk15on-146.jar META-INF/MANIFEST.MF
-
-   * Download [log4j-1.2.17.jar](http://logging.apache.org/log4j/1.2/download.html) file.
 
 9. Copy all the jars obtained in step 1 above to war/WEB-INF/lib subdirectory.
 
@@ -60,9 +59,9 @@ This sample source code and project is designed to work with Eclipse. It was tes
 
 12. Edit Configuration.java in com.google.cloud.solutions.sampleapps.griddler.backend.api package and update the following constants:
 
-  String WEB_CLIENT_ID = "Your Web Client ID"; // Use the Client ID created in step 5 above.
-  String ANDROID_CLIENT_ID = "Your Android Client ID"; // Use the Client ID created in step 6 above.
-  String CLOUD_MESSAGING_API_KEY = "Your Simple API Access key for server apps"; // Use the API key created in step 7 above.
+        String WEB_CLIENT_ID = "Your Web Client ID"; // Use the Client ID created in step 5 above.
+        String ANDROID_CLIENT_ID = "Your Android Client ID"; // Use the Client ID created in step 6 above.
+        String CLOUD_MESSAGING_API_KEY = "Your Simple API Access key for server apps"; // Use the API key created in step 7 above.
 
 13. In the Package Explorer, select "Griddler - App Engine" project and from the context menu select Google -> Generate Cloud Endpoint Client Library.
 
