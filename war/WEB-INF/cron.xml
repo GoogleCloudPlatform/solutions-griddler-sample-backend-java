@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/admin/push/feedbackservice/process</url>
+    <description>Query APNs Feedback service and remove inactive iOS devices
+    </description>
+    <schedule>every 4 hours</schedule>
+  </cron>
+</cronentries>

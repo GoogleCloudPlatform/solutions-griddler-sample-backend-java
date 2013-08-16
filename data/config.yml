@@ -1,0 +1,48 @@
+python_preamble:
+- import: base64
+- import: re
+- import: google.appengine.ext.bulkload.transform
+- import: google.appengine.ext.bulkload.bulkloader_wizard
+- import: google.appengine.ext.db
+- import: google.appengine.api.datastore
+- import: google.appengine.api.users
+
+transformers:
+
+- kind: Board
+  connector: csv
+  connector_options:
+    # TODO: Add connector options here--these are specific to each connector.
+  property_map:
+    - property: __key__
+      external_name: key
+      export_transform: transform.key_id_or_name_as_string
+      import_transform: transform.create_foreign_key('Kind', key_is_id=True)
+
+    - property: allottedTime
+      external_name: allottedTime
+      import_transform: transform.none_if_empty(int)
+
+    - property: answers
+      external_name: answers
+      import_transform: "lambda x: x.split(',')"
+      export_transform: "','.join"
+
+    - property: gridDefinition
+      external_name: gridDefinition
+      import_transform: "lambda x: x.split(',')"
+      export_transform: "','.join"
+
+    - property: riddles
+      external_name: riddles
+      import_transform: "lambda x: x.split(',')"
+      export_transform: "','.join"
+
+    - property: dateCreated
+      external_name: dateCreated
+      import_transform: transform.import_date_time('%Y-%m-%dT%H:%M:%S')
+      export_transform: transform.export_date_time('%Y-%m-%dT%H:%M:%S')
+
+    - property: level
+      external_name: level
+      import_transform: transform.none_if_empty(int)

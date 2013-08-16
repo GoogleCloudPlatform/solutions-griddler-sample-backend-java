@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes autoGenerate="true">
+  <datastore-index kind="Player" ancestor="false" source="manual">
+    <property name="active" direction="asc" />
+    <property name="email" direction="asc" />
+  </datastore-index>
+</datastore-indexes>

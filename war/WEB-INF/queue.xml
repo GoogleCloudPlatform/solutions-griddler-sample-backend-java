@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queue-entries>
+  <queue>
+    <name>invitations</name>
+    <rate>200/s</rate>
+    <bucket-size>100</bucket-size>
+  </queue>
+  <queue>
+    <name>ios-device-token-cleanup</name>
+    <rate>10/s</rate>
+    <bucket-size>20</bucket-size>
+    <target>default</target>
+  </queue>
+  <queue>
+    <name>player-statistics</name>
+    <rate>50/s</rate>
+    <bucket-size>100</bucket-size>
+  </queue>
+</queue-entries>
+

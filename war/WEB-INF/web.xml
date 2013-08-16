@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <servlet>
+    <servlet-name>SystemServiceServlet</servlet-name>
+    <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+    <init-param>
+      <param-name>services</param-name>
+      <param-value>com.google.cloud.solutions.sampleapps.griddler.backend.api.GameEndpoint,com.google.cloud.solutions.sampleapps.griddler.backend.api.PlayerEndpoint</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SystemServiceServlet</servlet-name>
+    <url-pattern>/_ah/spi/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- Setup remote API servlet to allow importing data, such as board definitions. -->
+  <servlet>
+    <servlet-name>RemoteApi</servlet-name>
+    <servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>RemoteApi</servlet-name>
+    <url-pattern>/remote_api</url-pattern>
+  </servlet-mapping>
+
+  <!-- Setup invitation notification servlet that is configured as a handler for
+    a push task queue. -->
+  <servlet>
+    <servlet-name>InvitationNotificationServlet</servlet-name>
+    <servlet-class>com.google.cloud.solutions.sampleapps.griddler.backend.servlet.InvitationNotificationServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>InvitationNotificationServlet</servlet-name>
+    <url-pattern>/admin/push/invitation</url-pattern>
+  </servlet-mapping>
+
+  <!-- Setup device cleanup servlet that is configured as a handler for a push task
+    queue. -->
+  <servlet>
+    <servlet-name>DeviceCleanupServlet</servlet-name>
+    <servlet-class>com.google.cloud.solutions.sampleapps.griddler.backend.servlet.DeviceCleanupServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeviceCleanupServlet</servlet-name>
+    <url-pattern>/admin/push/iosdevicecleanup</url-pattern>
+  </servlet-mapping>
+
+  <!-- Setup push notification feedback servlet that is executed by a cron job. -->
+  <servlet>
+    <servlet-name>NotificationFeedbackServlet</servlet-name>
+    <servlet-class>com.google.cloud.solutions.sampleapps.griddler.backend.servlet.NotificationFeedbackServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>NotificationFeedbackServlet</servlet-name>
+    <url-pattern>/admin/push/feedbackservice/process</url-pattern>
+  </servlet-mapping>
+
+  <!-- Setup the game results servlet that is configured as a handler for a push
+    task queue. -->
+  <servlet>
+    <servlet-name>ProcessGameResultsServlet</servlet-name>
+    <servlet-class>com.google.cloud.solutions.sampleapps.griddler.backend.servlet.ProcessGameResultsServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ProcessGameResultsServlet</servlet-name>
+    <url-pattern>/admin/statistics/processgameresults</url-pattern>
+  </servlet-mapping>
+
+  <!-- Prevent regular users from interacting with servlets.  -->
+  <security-constraint>
+    <web-resource-collection>
+      <url-pattern>/admin/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
+</web-app>
