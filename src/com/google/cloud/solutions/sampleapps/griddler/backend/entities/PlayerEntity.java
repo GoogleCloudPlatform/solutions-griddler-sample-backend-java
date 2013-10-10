@@ -73,18 +73,12 @@ public class PlayerEntity extends DatastoreEntity {
    * @throws IllegalArgumentException if user is null or if plusId is null or empty.
    */
   public PlayerEntity(User user, String plusId) {
-    super(new Entity(KIND), true);
-
-    if (user == null) {
-      throw new IllegalArgumentException("user cannot be null");
-    }
+    this(user);
 
     if (plusId == null || plusId.length() == 0) {
       throw new IllegalArgumentException("plusId cannot be empty");
     }
 
-    setProperty(EMAIL_PROPERTY, user.getEmail());
-    setProperty(ACTIVE_PROPERTY, false);
     setProperty(GOOGLEPLUSID_PROPERTY, plusId);
   }
 
