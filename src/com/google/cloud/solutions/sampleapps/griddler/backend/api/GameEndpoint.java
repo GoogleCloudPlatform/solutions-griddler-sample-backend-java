@@ -17,6 +17,7 @@ package com.google.cloud.solutions.sampleapps.griddler.backend.api;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.api.server.spi.response.UnauthorizedException;
@@ -84,12 +85,17 @@ public class GameEndpoint {
    * @param player the current player making the request.
    * @throws UnauthorizedException if the player is not authorized.
    * @throws NotFoundException if a game with gameId is not found.
+   * @throws BadRequestException if answers or correctAnswers are null.
    */
   @ApiMethod(httpMethod = "PUT", path = "games/{id}/answers")
   public void submitAnswers(@Named("id") long gameId, GamePlayStatus answers, User player)
-      throws UnauthorizedException, NotFoundException {
+      throws UnauthorizedException, NotFoundException, BadRequestException {
 
     Authentication.validateUser(player);
+
+    if (answers == null || answers.getCorrectAnswers() == null) {
+      throw new BadRequestException("answers and correctAnswers cannot be null");
+    }
 
     gameService.submitAnswers(gameId, player, answers);
   }
